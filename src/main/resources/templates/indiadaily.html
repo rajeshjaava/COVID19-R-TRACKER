@@ -1,0 +1,119 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>CoronaVirus Tracker Application</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container">
+		<li><a href="menu.html" th:href="@{/}">menu</a></li>
+		<h1>Coronavirus Tracker Application</h1>
+		<p>This application list the current number of COVID-19 cases
+			across the World</p>
+
+		<div class="jumbotron">
+			<p class="lead">
+				Total Number of COVID-19 Cases Reported <span th:text="${Datum.day}"></span>
+			</p>
+			<hr class="my-4">
+
+			<table class="table">
+
+				<tr>
+					<th>total</th>
+					<th>confirmed Cases-Indians</th>
+					<th>confirmed Cases-Foreign</th>
+					<th>discharged</th>
+					<th>deaths</th>
+					<th>confirmed But Location Unidentified</th>
+				</tr>
+				<tr th:object="${Datum.summary}">
+					<td th:text="*{total}"></td>
+					<td th:text="*{confirmedCasesIndian}"></td>
+					<td th:text="*{confirmedCasesForeign}"></td>
+					<td th:text="*{discharged}"></td>
+					<td th:text="*{deaths}"></td>
+					<td th:text="*{confirmedButLocationUnidentified}"></td>
+				</tr>
+			</table>
+
+
+		</div>
+
+		<table class="table">
+			<tbody>
+				<div class="accordion" id="accordionExample">
+					<tr:block th:each="data,insta : ${allcases}">
+						<div class="card">
+							<div class="card-header" id="headingOne+${data.day}">
+								<h2 class="mb-0">
+									<button class="btn btn-link" type="button"
+										data-toggle="collapse" data-target="#collapseOne+${data.day}"
+										aria-expanded="${insta.first}? 'true':'false'"
+										aria-controls="collapseOne" th:text="${data.day}"></button>
+								</h2>
+							</div>
+
+							<div id="collapseOne+${data.day}" class="collapse show"
+								aria-labelledby="headingOne+${data.day}"
+								data-parent="#accordionExample">
+								<div class="card-body">
+									<table class="table">
+										<tr>
+											<th>S.No</th>
+											<th>State</th>
+											<th>confirmed Cases Indian</th>
+											<th>confirmed Cases Foreign</th>
+											<th>discharged</th>
+											<th>deaths</th>
+										</tr>
+										<tbody>
+											<tr th:each="states,iterStat  : ${data.regional}">
+												<td th:text="${iterStat.count}"></td>
+												<td th:text="${states.loc}"></td>
+												<td th:text="${states.confirmedCasesIndian}"></td>
+												<td th:text="${states.confirmedCasesForeign}"></td>
+												<td th:text="${states.discharged}"></td>
+												<td th:text="${states.deaths}"></td>
+
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</tr:block>
+				</div>
+			</tbody>
+		</table>
+
+
+
+
+
+
+
+
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
