@@ -2,6 +2,9 @@
 
 COVID-19 tracker Application
 
+Developed back with with spring boot . UI with HTML . 
+Welcoming all kinds of contributions 
+
 
 
 Big thanks for all below publisher
